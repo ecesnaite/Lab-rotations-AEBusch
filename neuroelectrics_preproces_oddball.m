@@ -31,10 +31,10 @@ addchanloc = 0 % if we would like to add channel location
 %---------------------------
 % EEG data consists of activity in various frequency ranges. As a first 
 % step we should filter the data to the frequency range of our interest 
-% (here data is filtered between 0.5 and 20 Hz). 
+% (here data is filtered between 0.1 and 20 Hz). 
 %----------------------------
 
-EEG = pop_eegfiltnew(EEG, 'locutoff', 0.5,'hicutoff', 20, 'plotfreqz',0);
+EEG = pop_eegfiltnew(EEG, 'locutoff', 0.1,'hicutoff', 20, 'plotfreqz',0);
 
 %---------------------------
 % The Oddball task contained two types of trials: (i) including standard 
@@ -88,6 +88,7 @@ EEGincon = pop_epoch(EEG, {'7'}, [-0.200, 0.700], 'epochinfo', 'yes');
 %----------------------------
 
 fig = plot_erp_oddball_avg_parietal({EEGcon, EEGincon},{'P3', 'PZ','P4'}) %standard error: 'plotstd', 'fill'
+
     saveas(fig, ['']);
 
 %plot ERPs for every channel

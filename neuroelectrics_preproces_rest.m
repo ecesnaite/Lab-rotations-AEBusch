@@ -17,7 +17,7 @@ eeglab
 % set paths to where the data is stored 
 %----------------------------
 
-filepath = '' % location of the .easy file containing EEG data
+filepath = '' % location of the .easy file + the name of the file
 figurepath = '' % the path to your local directory where the figures will be saved
 
 %---------------------------
@@ -92,13 +92,17 @@ saveas(fig, [figurepath, condition,'-PSD.jpg']);
 % PSD doesn't hold any spatial information about the signal and where does
 % the highest amplitude come from. To see that we should look into the topography. 
 %----------------------------
+
+% First we have to specify channel locations
 chan_names = struct('labels', { 'PO7' 'F3' 'P3' 'Cz' 'Pz' 'F4'  'P4'  'PO8'}); % use BESA file int he drop down window
 chan_locs = pop_chanedit(chan_names);
 
-alphaEEG = pop_eegfiltnew(EEG, 'locutoff', 8,'hicutoff', 12,'plotfreqz',0); % here we filter the data between 1 and 40 Hz
+% Plot the topography
+figure, topoplot(mean(EEG.data'), chan_locs, 'electrodes', 'labels', 'maplimits', 'maxmin'), colorbar
 
-figure, topoplot(mean(alphaEEG.data'), chan_locs, 'electrodes', 'labels', 'maplimits', 'maxmin'), colorbar
-
+%---------------------------
+% Save the figure
+%----------------------------
 saveas(fig, [figurepath, condition,'-topoplot.jpg']); % this line saves the last figure
 
 
