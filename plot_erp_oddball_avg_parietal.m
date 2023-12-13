@@ -311,6 +311,7 @@ else
     %yaxisy = [yticksize       ,  yticksize      ,  yticksize,  -yticksize,  -yticksize      ,  -yticksize     ];
     %yaxis = line(yaxisx, yaxisy, 'Color', [0 0 0]);
     yaxis = xline(0, '--', 'stimulus')
+    yaxis.FontSize = 14
     % drawing y-axis labels
     if yticksize < 1, ylabelformat = '%+1.1f';
     else ylabelformat = '%+d'; end
@@ -318,7 +319,7 @@ else
    % ylabeln = text(0, double(yticksize * -1.25 * vscale), [num2str(-yticksize, ylabelformat) '{\mu}V'], 'VerticalAlignment', 'baseline', 'HorizontalAlignment', 'center', 'Color', [0 0 0]);
 
     % drawing channel name
-    chanlabel = text(xmin-0.05, ymax+2, ['avg P3-Pz-P4'], 'HorizontalAlignment', 'left', 'Color', [0 0 0],'FontSize',11);
+   % chanlabel = text(xmin-0.05, ymax+2, ['avg over all electrodes'], 'HorizontalAlignment', 'left', 'Color', [0 0 0],'FontSize',11);
 
     % drawing legend
     legendpos=4
@@ -356,7 +357,7 @@ plotdiff=0
         if plotdiff
             legendtext = [legendtext, char(10) '\color[rgb]{' num2str(colors(size(erps, 1),:)) '}' labels{size(erps, 1)}];
         end
-        legend = text(0.6, ymax+2, legendtext, 'HorizontalAlignment', align, 'VerticalAlignment', 'top','FontSize',14);
+        legend = text(0.65, ymax+2, legendtext, 'HorizontalAlignment', align, 'VerticalAlignment', 'top','FontSize',14);
     end
 end
     
@@ -375,7 +376,9 @@ end
 xaxis = yline(0)%line(xaxisx, xaxisy, 'Color', [0 0 0]);
 xbar = [0.3 0.6]
 patch([xbar(1) xbar(1), xbar(2) xbar(2)],[min(ylim) max(ylim) max(ylim) min(ylim)], [0.8 0.8 0.8], 'FaceAlpha',.2,'EdgeColor',[0.8 0.8 0.8])
-
+xlabel('Time(s)')
+ylabel('Amplitude(\muV)')
+set(gca,"FontSize",12)
 % drawing x-axis scale and label
 % if xscalepos > 0
 %     noscale = false;
