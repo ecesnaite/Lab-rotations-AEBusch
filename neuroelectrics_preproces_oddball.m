@@ -1,7 +1,9 @@
-% It's the first script to preprocess your resting-state EEG data. The
-% script loads the data, filters it, allows you to remove gross artefacts,
-% and plot power spectral density. It should be run for eyes-closed and
-% eyes-open conditions separately.
+% This script can be used to process your oddball task EEG data. The
+% script loads the data, filters it, allows you to remove gross artefacts.
+% Then we epoch the data, baseline correct it, and split into two
+% conditions for congruent and incongruent trials. As the final step you
+% will plot the data to see if you can spot any condition differences in
+% event-related potentials by eye.
 % The script is intended for teaching purposes.
 
 clear all, close all
@@ -80,7 +82,7 @@ EEG = pop_selectcomps(EEG, [1:8]); % you can inspect these components now visual
 
 remove_ics = find(EEG.reject.gcompreject); % indices of components that will be removed from the data
 
-EEG = pop_subcomp(EEG, remove_ics, 0);
+EEG = pop_subcomp(EEG, remove_ics, 0); % if the last argument is set to 1, you can see how the data will look like before and after ICA correction
 
 %-----------------------------------------------------------------------
 % Task: now you can inspect how a cleaned EEG data looks like. Are there
@@ -92,7 +94,7 @@ pop_eegplot(EEG, 1,1,0)
 %------------------------------------------------------------------------
 % In case eye blinks and eye movements were not removed from the data
 % sufficiently well, we can apply a higher high-pass filter cutoff value.
-% For this, please un-comment the lines below and repeat lines 69-88. 
+% For this, please un-comment the lines below and repeat lines 97-104. 
 %------------------------------------------------------------------------
 
 %EEGfilt = pop_eegfiltnew(EEG, 'locutoff', 2,'hicutoff', 20, 'plotfreqz',0);
